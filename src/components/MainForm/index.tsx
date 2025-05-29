@@ -2,14 +2,56 @@ import { PlayCircleIcon } from 'lucide-react';
 import { Cicles } from '../Cicles';
 import { DefaultButton } from '../DefaultButton/Index';
 import { DefaultInput } from '../DefaultInput/Index';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef } from 'react';
+import { TaskModel } from '../../models/TaskModel';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
+import { getNextCycle } from '../../utils/getNextCycle';
+import { getNextCycleType } from '../../utils/getNextCycleType';
 
 export function MainForm() {
-  const [taskName, setTaskName] = useState('');
+  const { state, setState } = useTaskContext();
+  // const [taskName, setTaskName] = useState('');
+  const taskNameInput = useRef<HTMLInputElement>(null);
 
-  function handleCreateNewTask(e: FormEvent<HTMLFormElement>) {
+  // Ciclos
+  const nextCycle = getNextCycle(state.currentCycle);
+  const nextCycleType = getNextCycleType(nextCycle);
+
+  function handleCreateNewTask(e: FormEvent) {
     e.preventDefault();
-    console.log('pausei o submit', taskName);
+
+    if (taskNameInput.current === null) return;
+
+    const taskName = taskNameInput.current.value.trim();
+
+    if (!taskName) {
+      alert('Digite o nome da tarefa');
+      return;
+    }
+
+    const newTask: TaskModel = {
+      id: Date.now().toString(),
+      name: taskName,
+      startDate: Date.now(),
+      completedDate: null,
+      interruptDate: null,
+      duration: 1,
+      type: nextCycleType,
+    };
+
+    const secondsRemaining = newTask.duration * 60;
+
+    setState((prevState) => {
+      return {
+        ...prevState,
+        config: { ...prevState.config },
+        activeTask: newTask,
+        currentCycle: nextCycle,
+        secondsRemaining,
+        formattedSecondsRemaining: '00:00',
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
   }
   return (
     <form onSubmit={handleCreateNewTask} className='form' action=''>
@@ -19,8 +61,9 @@ export function MainForm() {
           id='meuInput'
           type='text'
           placeholder='Digite algo'
-          value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          // value={taskName}
+          // onChange={(e) => setTaskName(e.target.value)}
+          ref={taskNameInput}
         />
       </div>
       <div className='formRow'>
