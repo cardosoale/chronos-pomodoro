@@ -1,5 +1,5 @@
 import { PlayCircleIcon } from 'lucide-react';
-import { Cicles } from '../Cicles';
+import { Cycles } from '../Cycles';
 import { DefaultButton } from '../DefaultButton/Index';
 import { DefaultInput } from '../DefaultInput/Index';
 import { FormEvent, useRef } from 'react';
@@ -7,6 +7,7 @@ import { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
+import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
 
 export function MainForm() {
   const { state, setState } = useTaskContext();
@@ -35,7 +36,7 @@ export function MainForm() {
       startDate: Date.now(),
       completedDate: null,
       interruptDate: null,
-      duration: 1,
+      duration: state.config[nextCycleType],
       type: nextCycleType,
     };
 
@@ -48,7 +49,7 @@ export function MainForm() {
         activeTask: newTask,
         currentCycle: nextCycle,
         secondsRemaining,
-        formattedSecondsRemaining: '00:00',
+        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
         tasks: [...prevState.tasks, newTask],
       };
     });
@@ -69,9 +70,11 @@ export function MainForm() {
       <div className='formRow'>
         <p>Próximo intervalo é de 25min</p>
       </div>
-      <div className='formRow'>
-        <Cicles />
-      </div>
+      {state.currentCycle > 0 && (
+        <div className='formRow'>
+          <Cycles />
+        </div>
+      )}
       <div className='formRow'>
         <DefaultButton icon={<PlayCircleIcon />} />
       </div>
