@@ -1,3 +1,5 @@
+import { TaskStateModel } from "../models/TaskStateModel";
+
 let instance: TimeWorkManager | null;
 
 export class TimeWorkManager {
@@ -14,8 +16,7 @@ export class TimeWorkManager {
     return instance;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  postMessage(message: any) {
+  postMessage(message: TaskStateModel) {
     this.worker.postMessage(message);
   }
 
