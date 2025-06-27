@@ -5,7 +5,7 @@ import { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
 
 export function taskReducer(
   state: TaskStateModel,
-  action: TaskActionModel
+  action: TaskActionModel,
 ): TaskStateModel {
   switch (action.type) {
     case TaskActionTypes.START_TASK: {
@@ -57,7 +57,7 @@ export function taskReducer(
         ...state,
         secondsRemaining: action.payload.secondsRemaining,
         formattedSecondsRemaining: formatSecondsToMinutes(
-          action.payload.secondsRemaining
+          action.payload.secondsRemaining,
         ),
       };
     }

@@ -24,7 +24,7 @@ export function Menu() {
   };
 
   function handleThemeChange(
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ) {
     event.preventDefault();
 
