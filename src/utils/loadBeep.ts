@@ -1,4 +1,4 @@
-import gravitational_beep from "../assets/audios/gravitational_beep.mp3";
+import gravitational_beep from '../assets/audios/gravitational_beep.mp3';
 
 export function loadBeep() {
   const audio = new Audio(gravitational_beep);
@@ -6,6 +6,6 @@ export function loadBeep() {
 
   return () => {
     audio.currentTime = 0;
-    audio.play().catch((error) => console.log("Erro ao tocar o aúdio", error));
+    audio.play().catch((error) => console.log('Erro ao tocar o aúdio', error));
   };
 }

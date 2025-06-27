@@ -1,4 +1,4 @@
-import { TaskStateModel } from "../models/TaskStateModel";
+import { TaskStateModel } from '../models/TaskStateModel';
 
 let instance: TimeWorkManager | null;
 
@@ -6,7 +6,7 @@ export class TimeWorkManager {
   private worker: Worker;
 
   private constructor() {
-    this.worker = new Worker(new URL("./timeWorker.js", import.meta.url));
+    this.worker = new Worker(new URL('./timeWorker.js', import.meta.url));
   }
 
   static getInstance() {

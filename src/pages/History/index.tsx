@@ -1,13 +1,13 @@
-import { TrashIcon } from "lucide-react";
-import { Container } from "../../components/Container";
-import { DefaultButton } from "../../components/DefaultButton/Index";
-import { Heading } from "../../components/Heading";
-import { MainTemplate } from "../../templates/MainTemplate";
-import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
+import { TrashIcon } from 'lucide-react';
+import { Container } from '../../components/Container';
+import { DefaultButton } from '../../components/DefaultButton/Index';
+import { Heading } from '../../components/Heading';
+import { MainTemplate } from '../../templates/MainTemplate';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 
-import styles from "./styles.module.css";
-import { formatDate } from "../../utils/formatDate";
-import { getTaskStatus } from "../../utils/getTaskStatus";
+import styles from './styles.module.css';
+import { formatDate } from '../../utils/formatDate';
+import { getTaskStatus } from '../../utils/getTaskStatus';
 
 export function History() {
   const { state } = useTaskContext();
@@ -19,9 +19,9 @@ export function History() {
           <span className={styles.buttonContainer}>
             <DefaultButton
               icon={<TrashIcon />}
-              color="red"
-              aria-label="Apagar todo meu histórico"
-              title="Apagar histórico"
+              color='red'
+              aria-label='Apagar todo meu histórico'
+              title='Apagar histórico'
             />
           </span>
         </Heading>
